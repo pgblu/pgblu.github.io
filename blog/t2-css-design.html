@@ -1,0 +1,55 @@
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="../stylesheets/blog-stylesheet.css">
+  <title>
+    pgblog
+  </title>
+</head>
+
+<body>
+  <div id="header">
+    <p id="splash">pgblog</p>
+    <p id="subheader">A musician tackles code</p>
+  </div>
+    <div id="col1">
+      <h1>Some CSS hackery</h1>
+      <h2>...but nothing replaces DIY</h2>
+      <p>The CSS learning process is one of inevitable trial and error. This is both fun &amp; empowering, yet it can also lead to frustration, as your own instincts run aground on the slippery ice of a language designed to take into account things you never anticipated.</p>
+      <p>The greatest bugaboo of CSS is the positioning of elements, which is complicated by several things:</p>
+      <ul>
+        <li>the fact that different element types have different default behaviors</li>
+        <li>that any website worth its salt will take into account different browsers, window sizes, or screen types</li>
+        <li>most maddeningly, that elements want (and need!) to be just as capable of responding to <em>one another</em> as they are to responding to their own changing content or to the window/container in which they dwell.</li>
+      </ul>
+      <p>It's an art form. And you don't become an artist overnight. First, you have to be a hack, and make no apologies for it.</p>
+      <p>Every element has -- in order from outside to inside -- a margin, a border, and a padding. All of these can be set to 0, and all can be adjusted independently on the top, left, right, and bottom. Of these, the 'border' is the easiest to understand. You can see your border -- if it exists -- and it can be mighty fancy! The margin separates the element (including its border) from the <em>outside world</em>, i.e., its container (e.g., the surrounding element or window), while the padding separates the element's content from its border. When your text is touching the border, in other words, then your padding is 0. If your element has a different background color than its containing element, then that color will reach to the border, and the margin will bear the background color of the surrounding element.</p>
+      <p>That's simple enough on the face of it, but things get tricky when one forgets to add the margin and border to the window's declared size. It's these mathematical errors that become a vexation when your sleek modern design becomes overpopulated with dynamic, self-aware elements. </p>
+      <p>CSS characteristics can be attached to html types (divs, p's, spans, etc.), but also to custom tags, known as <em>classes</em> and <em>ids</em>. Classes are invoked when you want to describe particular attributes of an element which will reappear in many places on the page. ID's, on the other hand, can only appear once on any page, and they are used to identify particular elements for the sake of mnemonic ease or so they can be described in some idiosyncratic way in CSS. Chris Coyer makes the lovely analogy that classes are like bar codes, while ID's are like serial numbers. You use an ID to talk about the particular instance of a product, and you use 'class' to discuss the price or the supply chain of the product. Once you keep this distinction in mind, the power of ID's and classes will eventually occupy your entire frontal lobe as a designer.</p>
+      <p>Relative, absolute, and fixed positioning will give you the most trouble, especially the first two:</p>
+      <ul>
+        <li>Fixed positioning places an element into the same spot in the browser window regardless of scrolling.</li>
+        <li>Relative spacing moves the element by a specified amount from where it would otherwise occur, i.e., away from its position if the attribute were 'static'.</li>
+        <li>Absolute positioning places the element exactly in the spot you specify, independent of all other elements.</li>
+      </ul>
+      <p>Note that absolute spacing is absolute in relation to the document, while fixed position is fixed in relation to the <em>window</em> that is opening onto the document.</p>
+      <p>The easiest way to keep track of inline-block vs block is to recognize that an inline block behaves exactly like a block, except than that it tolerates objects to stay in line after it. Then, an inline (non-block) object is different from an inline-block in that it <em>ignores</em> top/bottom margins &amp; padding, as well as height and width settings.</p>
+    </div>
+    <div id="col2">
+      <div id="picture">
+        <img height="115px" src="https://a248.e.akamai.net/assets.github.com/images/modules/404/parallax_octocat.png?1329921026"/>
+      </div>
+      <div id="archive">
+        <p>Archive list will go here (currently contains no links)</p>
+      </div>
+    </div>
+    <div id="footer">
+      <div id="nav">
+        <div id="navlink"><a href="#">Home</a></div>
+        <div id="navlink"><a href="#">About</a></div>
+        <div id="navlink"><a href="#">Blog</a></div>
+        <div id="navlink"><a href="#">Music Projects</a></div>
+        <div id="navlink"><a href="#">Code Projects</a></div>
+        <div id="navlink"><a href="#">Media</a></div></div>
+    </div>
+  </body>
+  </html>
