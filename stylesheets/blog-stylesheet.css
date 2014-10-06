@@ -11,8 +11,17 @@
     background-color: #DFECF7;
 }
 
+ul {
+    padding-left: 25px;
+    list-style-image: url('../imgs/bullet-leaf.png');
+}
+
+ul li {
+    padding-top: 3px;
+}
+
 #splash {
-    font: "Palatino Linotype", serif;
+    font-family: "Palatino Linotype", serif;
     font-size: 48px;
 }
 
@@ -22,7 +31,7 @@
 }
 
 #col1 {
-    font: "Palatino Linotype", serif;
+    font-family: "Palatino Linotype", serif;
     padding: 6px 12px 40px 12px;
     display: inline;
     width: 70%;
@@ -31,13 +40,18 @@
 }
 
 #col2 {
-    font: Georgia, serif;
+    font-family: "Georgia", serif;
     background-color: #ECDFF7;
     padding: 6px 12px 40px 12px;
     height: 100%;
     width: 25%;
     display: inline;
     float: left;
+}
+.code {
+    font-family: "Andale mono", monospace;
+    background-color: D9D9D9;
+    color: 424242;
 }
 
 #picture {
@@ -47,11 +61,15 @@
     background-color: #F7E9DF;
 }
 
+.archive {
+    clear: both;
+}
+
 #footer {
   clear: both;
   position: fixed;
   bottom: 0;
-  font: Charcoal, Impact, sans-serif;
+  font-family: "Charcoal", "Impact", sans-serif;
   left: 0;
   height: 70px;
   background-color: #DFECF7;

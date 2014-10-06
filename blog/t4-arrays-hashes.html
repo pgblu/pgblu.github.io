@@ -1,0 +1,51 @@
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="../stylesheets/blog-stylesheet.css">
+  <title>
+    pgblog
+  </title>
+</head>
+
+<body>
+  <div id="header">
+    <p id="splash">pgblog</p>
+    <p id="subheader">A musician tackles code</p>
+  </div>
+    <div id="col1">
+      <h1>Arrays and Hashes</h1>
+      <h2>They collect value</h2>
+      <p>Arrays and hashes make it possible to collect large amounts of similar data and do a variety of operations with them.</p>
+      <h3>Arrays</h3>
+      <p>The array API is incredibly rich, allowing the manipulation of individual components, searching, sorting, and other good things. Arrays can consist of basic data types, but can also be filled with any imaginable objects. The elements in an array are numbered from zero, but their 'size' or 'length' (two terms for the same attributes) is, as you'd expect, an expression of the number of items.</p>
+      <p>Highlights of array operations include:</p>
+      <ul>
+        <li>The ability to sort arrays according to default criteria (alphabetically or ordinally) as well as any custom criteria you could desire (e.g., word length, number of prime divisors, etc)</li>
+        <li>The ability to populate arrays using <span class="code">.push</span> and depopulate them using <span class="code">.pop</span> - such behaviors affect the back of the array, while the analogous methods <span class="code">.shift</span> and <span class="code">.unshift</span> are for the front of the array.</li>
+        <li>The ability to perform operations on the individual members of the array by passing a block of code.</li>
+        <li>With a minimum of knowledge about array methods, an array can be developed to behave like a linked list.</li>
+      </ul>
+      <h3>Hashes
+      </h3>
+      <p>Hashes can best be thought of as dictionaries, populated as they are with key-value pairs much like a dictionary holds entries and definitions. Unlike a dictionary, however, the members of a hash are not strictly ordered, and you can't call a particular key-value pair by its 'position' in the hash -- for it has no position! It can only be called by its key. Arrays are ordered, hashes aren't.</p>
+      <p>Still, the hash is one of the most useful data structures around, and it pays to study the methods very carefully. Exercises using hashes are a bit few and far between, so it behooves you to experiment with the methods and study <a href="http://ruby-doc.org/core-2.1.3/Hash.html">the API</a>.</p>
+      <p>My favorite aspect of hashes is that the Ruby interpreter doesn't particularly care whether your keys are integers, strings, pure symbols, or just about any custom data structure you can imagine — or, for that matter, a mixture of these things. I've been working on a brute-force recursive sudoku solver, and I find that I can express an entire unsolved puzzle as a hash. The 'value' for each cell consists of an array of that cell's candidate values, while I've coded the key as a three-digit array indicating the cell's row, column, and box location.</p>
+    </div>
+    <div id="col2">
+      <div id="picture">
+        <img height="115px" src="http://www.scribendi.com/images/cms/brackets.jpg"/>
+      </div>
+      <div id="archive">
+        <p>Archive list will go here (currently contains no links)</p>
+      </div>
+    </div>
+    <div id="footer">
+      <div id="nav">
+        <div id="navlink"><a href="#">Home</a></div>
+        <div id="navlink"><a href="#">About</a></div>
+        <div id="navlink"><a href="#">Blog</a></div>
+        <div id="navlink"><a href="#">Music Projects</a></div>
+        <div id="navlink"><a href="#">Code Projects</a></div>
+        <div id="navlink"><a href="#">Media</a></div></div>
+    </div>
+  </body>
+  </html>
