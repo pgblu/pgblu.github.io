@@ -1,0 +1,46 @@
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="../stylesheets/blog-stylesheet.css">
+  <title>
+    pgblog
+  </title>
+</head>
+
+<body>
+  <div id="header">
+    <p id="splash">pgblog</p>
+    <p id="subheader">A musician tackles code</p>
+  </div>
+    <div id="col1">
+      <h1>Spokes in the wheel of your #cycle</h1>
+      <p>The Enumerable module is a powerful Ruby construct which you can access in your own custom classes anytime the classes have their own explicit 'each' method. As soon as you implement an 'each' method in a way that makes sense for your class, then all the methods of the Enumerable module can be 'mixed in' to your class as you see fit or as suits your current or future purposes.</p>
+      <p>Much more commonly, however, we encounter the methods of the Enumerable class when we deal with our favorite data types, the Hash and the Array. Both these classes are already very rich, but the mix-in of the Enumerable methods really does kick it up a notch, as everybody's hero Emeril likes to say.</p>
+      <p>Let's talk about the Enumerable#cycle method.</p>
+      <p>When we look at the Ruby documentation for this method, it just says that <span class="code">foo.cycle {|x| puts x}</span> will print out the elemens of foo over and over again. One imagines a spool of text tripping over itself to fill your stdout until you gracefully or not-so-gracefully kill the process.</p>
+      <p>But printing out your values is not all you can do, of course. Starting a cycle method spinning, and then assigning it to a variable, means that you can call the <span class="code">.next</span> method on that, and then emulate the behavior of anything that moves in cycles.</p>
+      <p>I found myself using this method in a recent effort to manipulate calendar data:</p>
+      <p class="code">months = [31,29,31,30,31,30,31,31,30,31,30,31]<br/>
+        calendar = months.cycle<br/>
+        days_in_upcoming_month = calendar.next<br/>
+      </p>
+      <p>Technically, the object calendar is the <em>enumerator</em> of the months object, which is the <em>enumerable</em>. Watch this space! The above code will soon be updated. I used it to calculate the number of Sundays in the 20th century for a Project Euler puzzle challenge.</p>
+    </div>
+    <div id="col2">
+      <div id="picture">
+        <img height="115px" src="../imgs/bike_axle.jpg"/>
+      </div>
+      <div id="archive">
+        <p>Archive list will go here (currently contains no links)</p>
+      </div>
+    </div>
+    <div id="footer">
+      <div id="nav">
+        <div id="navlink"><a href="#">Home</a></div>
+        <div id="navlink"><a href="#">About</a></div>
+        <div id="navlink"><a href="#">Blog</a></div>
+        <div id="navlink"><a href="#">Music Projects</a></div>
+        <div id="navlink"><a href="#">Code Projects</a></div>
+        <div id="navlink"><a href="#">Media</a></div></div>
+    </div>
+  </body>
+  </html>
