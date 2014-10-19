@@ -13,12 +13,23 @@
   </div>
     <div id="col1">
       <h1>Kingdom, Phylum, Class, Method, Variable, Constant, ...</h1>
-      <h2>Designing a custom class</h2>
-      <p><!--main text goes here--></p>
+      <h2>Designing a custom class: the technology conference</h2>
+      <p>Let's imagine that we are a conference organizer and we've decided to build and keep track of our conference using Ruby. What kinds of objects and methods does the conference need to be responsible for? In other words, what does it know and what does it do?</p>
+      <p>First of all, a conference is a data-heavy sort of object, associated with many other data-heavy objects: people, conference topics, individual presentations, and a schedule. So in addition to the cool functionality that we want to inject with ruby, we probably need to handle all this data with a database. That's beyond the scope of this blog post, but it is worth mentioning.</p>
+      <h4>What it knows</h4>
+      <p>The question of what a conference knows is answered by instance and/or class variables.</p>
+      <p>Every participant in the conference belongs to the <span class='code'>Person</span> class, which of course is not part of the ruby core, but <span class='code'>Person</span>s are <a href="http://code.tutsplus.com/tutorials/ruby-for-newbies-working-with-classes--net-15938">created</a> so <a href="http://rubymonk.com/learning/books/5-metaprogramming-ruby-ascent/chapters/47-real-world/lessons/111-extending-object">often</a> that perhaps we don't have to go into it too much.</p>
+      <p>It does seem, however, that a conference participant has many needed attributes that we don't care about or don't exist in the general population. Has this participant been to a conference before? What are his/her areas of expertise? Are they a passive participant or active, have they paid their dues? Will they be presenting? Are they on the mailing list? Are they a member of the organization team, and if so, what is their role in the conference? The list of special attributes goes on and on. The class ConferenceParticipant clearly needs to be a subclass of Person.</p>
+      <p>A conference takes place during a certain block of time, and the presentations have to be scheduled. So the Conference class must now a bunch of Presentation objects and have a Schedule as well, an instance, presumably, of the custom-made Schedule class.</p>
+      <h4>What it does</h4>
+      <p>All of that is reasonably straightforward, and now we must think about what the Conference class is actually responsible for. The "what does it do?" question is answered by <em>methods</em>.</p>
+      <p>Clearly the conference events must happen sequentially, and presentations on similar topics shouldn't be simultaneous, at least not too often. But is a Presentation responsible for scheduling itself? No! The Conference class needs to put presentations on the schedule. So we need a <span class="code">schedule</span> method, which takes as its argument a presentation object variable. Note that the duration, presenter name, title and subject area are known by the presentation object and don't need to be used as arguments for this method. After all, the Conference is not responsible for determining the duration of the presentation, it is only responsible for reacting to that information. That information is encapsulated in the Presentation object, where the Conference can read it but not write it.</p>
+      <h4>Other things to consider</h4>
+      <p>Lastly, let's open the scope of the class a bit. Is the Conference a subclass of Event, perhaps? Should the Presentation class be able to know about people, or should People know about presentations? Both? Neither? How we answer these questions will determine a great deal about how our presentation participants interact with one another and with the event, and how they will remember it.</p>
     </div>
     <div id="col2">
       <div id="picture">
-        <img height="115px" src="../imgs/"/>
+        <img height="115px" src="../imgs/a_conference.png"/>
       </div>
       <div id="archive">
         <p>Archive list will go here (currently contains no links)</p>
