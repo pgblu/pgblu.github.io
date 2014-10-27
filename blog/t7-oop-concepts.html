@@ -31,13 +31,16 @@
       <li>   include 'mod'</li>
       <br/>
       <li>   def other_method</li>
-      <li>     puts "Hello"</li>
+      <li>     ....</li>
       <li>   end</li>
       <li>end</li>
       <br/>
-      <li>greeter = Mod.new</li>
+      <li>greeter = Greeter.new</li>
+      <li>greeter.say_hello</li>
     </ul>
     <br/>
+    <p>It is also possible to mix in the module outside the class declaration, i.e., 'on the fly', using the method name 'extend' on the class instance.</p>
+    <p>Finally, it is worth noting that Modules, like Variables, can be constants, i.e., they can be used to mix in constant features, such as a group of variables, or a group of mathematical functions, or the like. From here, it's not far to the concept of passed 'blocks' and 'procs'. But I'll save that for another post.</p>
 
 
   </div>
