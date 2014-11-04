@@ -1,0 +1,44 @@
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="../stylesheets/blog-stylesheet.css">
+  <title>
+    pgblog
+  </title>
+</head>
+
+<body>
+  <div id="header">
+    <p id="splash">pgblog</p>
+    <p id="subheader">A musician tackles code</p>
+  </div>
+  <div id="col1">
+    <h1>Ruby Hashes vs. JavaScript Objects</h1>
+    <h2>Let's discuss values</h2>
+    <p>On first glance, Ruby hashes and objects in JS have obvious similarities. Both are structured as dictionaries, with the option of keys being treated symbolically, and it is easy in both cases to access (get) or mutate (set) the values.</p>
+    <p>In Ruby, hashes are but one of many kinds of core objects. Along with arrays, they are the jewels in the Ruby crown, with an incredibly rich API. Ruby makes no assumptions about the value types of hashes. They can be strings, symbols, integers, arrays, even other hashes -- but the real power lies in the fact that they can be populated by custom objects, or even a different object type for each key.</p>
+    <p>Ruby's hashes have the methods of the 'Enumerable' module mixed in, which is another source of tremendous flexibility. It permits the keys of the array to be accessed through a single command, leading to traversing, chunking, mapping, and sorting according to custom criteria.</p>
+    <p>Granted, all of these things can be done with JS objects -- and then some! -- but that is not really the point. The point is that a hash makes no assumptions about how it will be used. JS objects, on the other hand, are assumed to be the models of real-world objects, and the JS functions built into a given application are meant to act upon them to derive new data.</p>
+    <p>I'm tempted to put it this way: hashes are a means to an end, while JS objects are points of departure, on which hangs the functionality of your application.</p>
+    <br/>
+
+
+  </div>
+  <div id="col2">
+    <div id="picture">
+      <img height="245px" src="../imgs/<!--imagelink-->"/>
+    </div>
+    <div id="archive">
+      <p><a href="blog-index.html">Older posts</a></p>
+    </div>
+  </div>
+  <div id="footer">
+    <div id="nav">
+      <div id="navlink"><a href="#">Home</a></div>
+      <div id="navlink"><a href="#">About</a></div>
+      <div id="navlink"><a href="#">Blog</a></div>
+      <div id="navlink"><a href="#">Music Projects</a></div>
+      <div id="navlink"><a href="#">Code Projects</a></div>
+      <div id="navlink"><a href="#">Media</a></div></div>
+    </div>
+  </body>
+  </html>
