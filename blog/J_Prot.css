@@ -1,0 +1,19 @@
+
+
+h3 {
+  text-align:center;
+  display:block;
+}
+
+table {
+    border: 1px solid black;
+}
+
+img {
+  text-align:center;
+  display:block;
+  margin-left: 120px;
+}
+code {
+  background-color: #FFFF66;
+ }

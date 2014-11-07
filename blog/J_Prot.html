@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link type="text/CSS" rel="stylesheet" href="../projects/cheatsheet.css">
+  <title>JavaScript Prototypes</title>
+</head>
+
+<body>
+  <h3>JavaScript Prototypes</h3>
+  <p> JavaScript prototypes are similar to Class objects in Ruby. They are objects that are packed with built-in methods, such as <code>.toString</code> , <code>.getPrototypeOf</code> , and <code>.hasOwnProperty</code>. Since all prototypes can be traced back up the tree to the Object prototype, all prototypes have the methods associated with Object, plus their own unique methods. For example, <code>.pop</code>, <code>.push</code>, <code>.shift</code>, <code>.unshift</code>, <code>.slice</code>, and <code>.sort</code> are inherent to the Array prototype.  Furthermore, you can create your own prototypes, which are like the parent classes in Ruby that branch off into child classes. All the child classes inherit the methods and properties of the parent class. In JS the parent class is the prototype and the subclasses are called instances of the prototype.</p>
+
+  <h3>Key aspects to remember:</h3>
+  <p>Prototypes are Capitalized to distinguish them from other objects.<br />
+  JS comes with built in prototypes, but you can also create your own using, most commonly, the constructor function with the new syntax (example below).</p>
+
+  <h3>All prototypes are objects, and they trace up the tree to the Object prototype, and the Object prototype is itself an object. Good ol Object Oriented Programming at work here.</h3>
+
+  <img src= "../website-pics/prototype_tree.jpg"/>
+
+  <h3>Most common methods for most common prototypes:</h3>
+
+  <table>
+    <table border="1" style="width:100%">
+    <thead>
+      <tr>
+        <th>Array</th>
+        <th>Function</th>
+        <th>RegExp</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+  <tr>
+    <td>.pop, .push</td>
+    <td>.call</td>
+    <td>.exec</td>
+    <td>.getDate, .getDay</td>
+  </tr>
+  <tr>
+    <td>.shift, .unshift</td>
+    <td>.bind</td>
+    <td>.test</td>
+    <td>.getHours, .getMinutes</td>
+  </tr>
+   <tr>
+    <td>.slice, .join</td>
+    <td>.apply</td>
+    <td></td>
+    <td>.getTimezoneOffset</td>
+  </tr>
+   <tr>
+    <td>.sort, .splice</td>
+    <td>.length</td>
+    <td></td>
+    <td>.toLocaleTimeString</td>
+  </tr>
+  <tr>
+    <td>.concat, .reverse</td>
+  </tr>
+  <tr>
+    <td>.length</td>
+  </tr>
+</table>
+
+  <p>A prototype is, by definition, "a first, typical or preliminary model of something, esp. a machine, from which other forms are developed or copied." When you make a prototype, you are creating a framework for actual instances of the objects you need. The most common and widely supported way to do this is to use the constructor function. All you need are a few key words. For example:<br />
+
+    <code>function Vehicle(fuel, wheels, license) {<br />
+      this.fuelType = fuel;<br />
+      this.numOfWheels = wheels;<br />
+      this.requiredLicense = license;<br />
+    };</code>
+
+    <br />
+    <br />
+
+  That is our prototype for Vehicle. Now lets create some instances of it.<br />
+
+    <code>car = new Vehicle("gasoline", 4, "Class A Driver's License")<br />
+
+    motorcycle = new Vehicle("gasoline", 2, "Class M Driver's License"</code>
+
+    <br />
+    <br />
+
+  Now, if we want to see what we've done just type out:<br />
+
+    <code>console.log(car)</code>
+
+    <br />
+    <br />
+
+  And the results will be:<br />
+
+    <code>fuelType: "gasoline", numOfWheels: 4 wheels, requiredLicense: "Class A Driver's License"</code>
+
+    <br />
+    <br />
+
+  Now say we want to add another property to our prototype. The way to do this is by using the prototype property (We realize that is probably confusing, but here is the syntax to make it clear):<br />
+
+    <code>Vehicle.prototype.maxSpeedmph = 0</code>
+
+    <br />
+    <br />
+
+  And now to add this attribute to our car and motorcycle instances we will simply assign a value. The reason it does not automatically add to it is because now we have no parameter set up in our function to account for maxSpeed, so it must be a manual input. This is probably one of the only drags about prototypes.<br />
+
+    <code>car.maxSpeedmph = 140<br />
+    motorcycle.maxSpeedmph = 150</code>
+
+    <br />
+    <br />
+
+  Custom prototypes are a different ball game. Unlike the standard prototypes, your homespun prototypes will be missing many core methods. It is common, for example, to want to display your object in a meaningful way, and for this purpose the .toString method exists. But if we call .toString on our <code>car</code>, the parser will look in the instance for a .toString method. Since it's not there, it goes up the chain to <code>Vehicle</code> -- which also contains no such method. So we instead receive the default toString method from the Object prototype. All <em>that</em> method knows about itself is that it's an object. So <code>car.toString</code> will return the result <code>[object Object]</code></p>
+
+</body>
+
+</html>
