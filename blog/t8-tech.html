@@ -1,0 +1,45 @@
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="../stylesheets/blog-stylesheet.css">
+  <title>
+    pgblog
+  </title>
+</head>
+
+<body>
+  <div id="header">
+    <p id="splash">pgblog</p>
+    <p id="subheader">A musician tackles code</p>
+  </div>
+  <div id="col1">
+    <h1>The children of Lisp</h1>
+    <h2>Functional programming</h2>
+    <p>It's hard to wrap one's mind around the constellation of programming languages out there, to say nothing of keeping track of what is 'in' and what's not. A single blog post can only scratch the surface of this topic, but every attempt to 'dig deep' has to start with some scratching, right?</p>
+    <p>Functional programming is one of the most-discussed paradigms in computing today, even though it's also one of the oldest. What is the secret to its longevity as a topic? We'll get to that in a moment, first a little history.</p>
+    <p>Lisp is among the oldest higher-level computer language still in widespread use today, built in 1958 and massively influential, having spawned a number of offspring (most prominently Scheme and Common Lisp) as well as imitators such as Clojure and Scala (both built on the Java Virtual Machine). Even our friend Ruby counts Lisp among its principal influences, in part through the conduit of Smalltalk.</p>
+    <p>So why is functional programming more important today than ever? Isn't object-oriented programming the thing now? Indeed it is, but this should not be a source for confusion. The biggest problem for novices is recognizing these paradigms do not stand in opposition to each other. Rather, while they all contribute certain strengths and weaknesses to the picture, functions can be manipulated like objects, and in fact Scala bills itself as 'object-oriented meets functional' with the tagline "Have the best of both worlds."</p>
+    <p>The persistence of functional programming has to do with its tolerance for complexity, its flexibility, but above all its scalability. The most demanding facets of Twitter, for example, are coded in Scala, where functions can be anonymous and run concurrently. Herein lies the key to Scala's relevance in modern web applications: this concurrency means that code need not run faster (though it does that too) in order to run more efficiently. Individual pieces of Scala code work independently and can pass outputs to one another in a continuous flow. Coupled with its linguistic affinity to Java this means that Scala's popularity should be no surprise to anyone.</p>
+    <p>The next two aspects of this topic are the notions of 'pure' functions (by way of which we're introduced to Haskell) and the ways in which Ruby can invoke functional programming paradigms (the world of procs and lambdas) - however, it's late and I have to cut it short for now. Hope this has been helpful!</p>
+    <br/>
+
+
+  </div>
+  <div id="col2">
+    <div id="picture">
+      <img height="245px" src="../imgs/brackets.jpg"/>
+    </div>
+    <div id="archive">
+      <p><a href="blog-index.html">Older posts</a></p>
+    </div>
+  </div>
+  <div id="footer">
+    <div id="nav">
+      <div id="navlink"><a href="#">Home</a></div>
+      <div id="navlink"><a href="#">About</a></div>
+      <div id="navlink"><a href="#">Blog</a></div>
+      <div id="navlink"><a href="#">Music Projects</a></div>
+      <div id="navlink"><a href="#">Code Projects</a></div>
+      <div id="navlink"><a href="#">Media</a></div></div>
+    </div>
+  </body>
+  </html>
