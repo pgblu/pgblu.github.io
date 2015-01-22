@@ -1,0 +1,13 @@
+span .inline_img {
+  height: 15px;
+}
+
+td.txt {
+  font-family: Monospace;
+  font-size: 25px;
+  text-align: center;
+}
+
+table#padme tr td {
+  margin-top: 50px;
+}
