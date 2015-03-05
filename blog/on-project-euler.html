@@ -1,0 +1,90 @@
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="../stylesheets/blog-stylesheet.css">
+  <title>
+    pgblog
+  </title>
+</head>
+
+<body>
+  <div id="header">
+    <p id="splash">pgblog</p>
+    <p id="subheader">A musician tackles code</p>
+  </div>
+  <div id="col1">
+    <h1>On Project Euler</h1>
+    <h2>as an interview prep tool</h2>
+    <p>NOTE: Project Euler is not the best interview prep tool for aspiring software developers. It is a much better use of your time to practice whiteboarding things like 'FizzBuzz' or the Reverse Polish Notation calculator -- especially in front of other people. However, this blog post is not the place to find interview tips! I am in far too urgent need of those myself. Use Project Euler problems to polish your coding skills and to throw some variety into your prep routine.</p>
+    <p>Project Euler is a collection of (now) over 500 math and number theory puzzles. It has existed since the start of this millennium, but the collection continues to grow, both in size and in popularity. A user, after creating an account, can see all the puzzles, but the site only provides solutions to those puzzles for which a user has submitted an answer. This encourages the user to (1) come up with their own solution (however hacky it might be) and (2) gain an after-the-fact appreciation of the numerous ways that other users have approached the problems.</p>
+    <p>Those who are stuck on a particular problem can often find help by googling the problem number (e.g., 'Project Euler Problem <em>x</em>'). Some of the more enterprising (and less scrupulous, in my opinion) users have taken Project Euler problems as an opportunity to demonstrate how well they can explain stuff. I don't want to come down too hard on these people, by the way. They are going against the rules of the site, but blogging about these problems are a great way for someone to distinguish themselves on the job market. Besides, the real 'scruple debt' lies with those users who went a-googling in the first place. And I don't want to come down too hard on <em>them</em>, either. After all, everyone approaches things in the way that best suits their own learning style.</p>
+    <p>I am not a math expert, but I've done over 50 problems on Project Euler. As enjoyable as these problems were, I found some more thought-provoking than others. So the purpose of this blog post is to name my 'top ten' puzzles, rated in terms of their helpfulness. Take it with a grain of salt: as I say, I'm less than 10% through the stack, and have yet to attempt anything super-difficult. The later problems require some knowledge of Number Theory in order to solve them with anything resembling efficiency.</p>
+    <p>Second caveat: I was using Ruby to solve the problems (though I sometimes availed myself of the Wolfram Language as well). Some of the puzzles I rated 'useful' because they allowed me to become more familiar with certain data-structure manipulation methods that aren't necessarily available in lower-level languages.</p>
+    <p>Finally, note that this list is in order of usefulness, not in order of difficulty. I'm not sure that's the most helpful way to do things, and on a different day I might put these in a different order. But at some point the blog post has to go out the door so I can get on with my day!</p>
+    <p>Anyway, for what it's worth, here's my list:</p>
+    <ul>
+      <li>
+        <h4>1. Problem 86: Cuboid route</h4>
+        <p>Spider vs. Fly is fun because I like bugs. But it's also a nice geometry problem. Hint: since a spider can only crawl in 2 dimensions, turn this into a two-dimensional problem!</p>
+      </li>
+      <li>
+        <h4>2. Problem 18/67: Maximum path sum I,II</h4>
+        <p>These puzzles are a gentle introduction to dynamic programming - one of the most valuable tools in the coder's toolbox. Once you do #18 the 'right' way, #67 is easy. Hint: start at the <em>bottom</em> of the triangle, not the top. Resist the first 5 temptations to google!</p>
+      </li>
+      <li>
+        <h4>3. Problem 15: Lattice paths</h4>
+        <p>This problem boils down to a study in permutations. You need to take 40 steps total, and half of them are 'down' & the other half 'left'. How many ways can you choose 20 out of 40 steps?</p>
+      </li>
+      <li>
+        <h4>4. Problem 19: Counting Sundays</h4>
+        <p>This puzzle was especially helpful for getting to understand Ruby's <span class="code">.cycle</span> method, which I used to set up a rotating list of weekday names. In addition, you could be using <span class="code">.zip</span>, which is pretty cool.</p>
+        <p>Note that there is a <em>very</em> easy way to do this puzzle using trial and error: count all the months in the century, then divide by 7, then guess a bit higher or lower. Do it that way if you want to learn nothing.</p>
+      </li>
+      <li>
+        <h4>5. Problem 24: Lexicographic permutations</h4>
+        <p>I like this one because it is elegant and the question is easy to understand, yet a correct solution requires you to make several leaps of logic. Try it out on paper first!</p>
+      </li>
+      <li>
+        <h4>6. Problem 48: Self powers</h4>
+        <p>There is a five-line solution to this in Ruby, though I think even 10 years ago it would have been a challenge to processors when utilizing big integers. What's instructive about the problem is to learn to solve it using modulo arithmetic. See <a href="http://www.mathblog.dk/project-euler-48-last-ten-digits/">this very unscrupulous blog entry</a> for an excellent discussion.</p>
+      </li>
+      <li>
+        <h4>7. Problem 31: Coin Sums</h4>
+        <p>This is a less gentle exposure to dynamic programming. Don't get frustrated by it! Start with how many ways you can achieve 1p, 2p, 3p, etc. and try to generalize as you go along. You can get to 5p by using all the ways to get to 4p, PLUS that new method of simply using a five-pence coin. Create a table of your results -- the rows representing target totals (1,2,3,4...) and the columns representing what coins you have at your disposal (1p, 1p+2p, 1p+2p+5p, etc.) -- and then scour it for patterns.</p>
+      </li>
+      <li>
+        <h4>8. Problem 21: Amicable numbers</h4>
+        <p>There is no secret to doing this one. It's a good exercise for keeping track of your variables.</p>
+      </li>
+      <li>
+        <h4>9. Problem 36: Double base palindromes</h4>
+        <p>Many number theorists get annoyed by the topic of palindromic numbers. It's one of those topics that muddies the waters of 'pure' number theory, since a number that's palindromic in its base-10 representation doesn't necessarily retain that property in any other base. And really, we shouldn't be confusing numbers with their representations, right?</p>
+        <p>Base-10 is a social construct. We use it because we have 10 fingers. (Yes, and the Romans only had 5 fingers). 5 apples or 5 other objects are not the same thing as an image of the number 5, and both of these are a distraction from the <em>idea</em> of five.</p>
+        <p>So this problem will annoy many number theorists. But it need not annoy <em>you</em>! It's helpful because it reminds you not to conflate a number with its base-10 representation, and because it requires you to review string comparison & base conversion methods.</p>
+      </li>
+      <li>
+        <h4>10. Problem 26: Reciprocal Cycles</h4>
+        <p>I include this one because, once you have the answer, it's helpful to reflect on why the answer makes sense.</p>
+      </li>
+    </ul>
+    <p>This was a difficult list to compile. I'm not sure I made the best choices. In retrospect, it might have been more helpful to compile a list of the project Euler problems to <em>avoid</em>. But I did want to stay positive, and I think most readers will recognize impending drudgery when they see it. Good luck!</p>
+
+  </div>
+  <div id="col2">
+    <div id="picture">
+      <img height="245px" src="../imgs/headscratcher.jpg"/>
+    </div>
+    <div id="archive">
+      <p><a href="blog-index.html">Older posts</a></p>
+    </div>
+  </div>
+  <div id="footer">
+    <div id="nav">
+      <div id="navlink"><a href="#">Home</a></div>
+      <div id="navlink"><a href="#">About</a></div>
+      <div id="navlink"><a href="#">Blog</a></div>
+      <div id="navlink"><a href="#">Music Projects</a></div>
+      <div id="navlink"><a href="#">Code Projects</a></div>
+      <div id="navlink"><a href="#">Media</a></div></div>
+    </div>
+  </body>
+  </html>
