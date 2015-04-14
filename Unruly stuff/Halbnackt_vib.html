@@ -1,0 +1,440 @@
+
+<!-- saved from url=(0050)http://camil.music.illinois.edu/software/rehearse/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Rehearse!</title>
+<style type="text/css">
+td {vertical-align: top;}
+select, textarea {font-family: "Courier New"; font-size: 10pt}
+
+</style>
+</head>
+<body>
+<table>
+<tbody><tr>
+<td>
+<audio id="AudioPlayer">
+  <source src="Rehearse.wav" type="audio/wav">
+</audio>
+<form action="" method="get">
+  <h3>Timings Halbnackt Vibraphone</h3>
+  <p>Note: times denote the <b>end</b> of the section.</p>
+  <pre> ... m'ss.s" Section Name     Selection</pre>
+  <table><tbody><tr><td>
+  <textarea id="Timings" onchange="correct_timings()" cols="25" rows="20">  </textarea></td>
+  <td>
+  <select id="TimingsBox" size="21" multiple="true"></select>
+  </td></tr>
+  </tbody></table>
+  <br>Cmd/Ctrl+Click to add sections<br>Shift+Click to add range of sections
+  <br>
+  <button type="button" onclick="select_none()">None</button>
+  <button type="button" onclick="select_inverse()">Inverse</button>
+  <button type="button" onclick="select_all()">All</button>
+  <br>
+  <br>
+  <button type="button" onclick="start()">Start</button>
+  <button type="button" onclick="stop()">Stop</button>
+  <button type="button" onclick="select_all(); start()">Run Through</button>
+  <br>
+  <!--<input type="submit" value="Submit"/>-->
+</form>
+</td><td>
+<canvas id="AnimationCanvas" width="600" height="600"></canvas>
+</td>
+</tr>
+<!--
+<tr><td>Debug:</td></tr>
+<tr>
+<td id="info">Info:</td>
+</td>-->
+</tbody></table>
+
+
+<script type="text/javascript">
+
+//Constants
+var global_preroll_time = 5.0
+
+//Globals
+var global_interval_start = 0
+var global_interval_length = 5.0
+var global_interval_clock
+var global_interval_queue
+var global_interval_queue_index = 0
+var global_timings
+
+function default_timings()
+{
+  //Escape using: http://www.htmlescape.net/stringescape_tool.html
+  //Then copy paste in to var x = "" between the double quotes
+
+  var x = "... 1\'35.0\" Part 1\n... 3\'10.0\" Pause 1\n... 4\'45.0\" Part 2\n... 6\'15.0\" Pause 2\n... 7\'45.0\" Part 3\n... 9\'15.0\" Pause 3\n... 10\'50.0\" Part 4\n... 12\'25.0\" Pause 4\n... 14\'00.0\" Part 5"
+  return x
+}
+
+function main()
+{
+  fromid("Timings").value = default_timings()
+  correct_timings()
+  play_sound()
+}
+
+function make_queue() {
+  global_interval_queue = new Array()
+
+  //Add a pre-roll
+  global_interval_queue.push({"label": "Get Ready",
+    "duration": global_preroll_time})
+
+  var b = fromid("TimingsBox").options
+  for(var i = 0; i < b.length; i++) {
+    if(b[i].selected) {
+      var duration
+      if(i == 0)
+        duration = global_timings[i].time
+      else
+        duration = global_timings[i].time - global_timings[i - 1].time
+      var label = global_timings[i].label
+      global_interval_queue.push({"label": label, "duration": duration})
+    }
+  }
+}
+
+function stop() {
+  stop_clock()
+}
+
+function start() {
+  stop()
+  make_queue()
+  global_interval_queue_index = 0
+  start_clock(false)
+}
+
+function select_all() {
+  var b = fromid("TimingsBox").options
+  for(var i = 0; i < b.length; i++) {
+    b[i].selected = true
+  }
+}
+
+function select_none() {
+  var b = fromid("TimingsBox").options
+  for(var i = 0; i < b.length; i++) {
+    b[i].selected = false
+  }
+}
+
+function select_inverse() {
+  var b = fromid("TimingsBox").options
+  for(var i = 0; i < b.length; i++) {
+    b[i].selected = !b[i].selected
+  }
+}
+
+function title_case(str) {
+  return str.replace(/\w\S*/g,
+    function(txt){return txt.charAt(0).toUpperCase() +
+    txt.substr(1).toLowerCase();});
+}
+
+function trim1(str) {
+    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+}
+
+function get_timing(x)
+{
+  x = trim1(x)
+  x = x.replace(":", "'")
+  x = x.replace("... ", "").replace("...", "").replace("..", "")
+  x = x + " "
+
+  var m = 0.0
+  var s = 0.0
+
+  if(x.indexOf("'") != -1) {
+    m = new Number(x.split("'")[0])
+    if(x.indexOf("\"") != -1) {
+      s = new Number(x.substring(x.indexOf("'") + 1, x.indexOf("\"")))
+    }
+    else {
+      s = new Number(x.substring(x.indexOf("'") + 1, x.indexOf(" ")))
+    }
+  }
+  else {
+    if(x.indexOf("\"") != -1) {
+      s = new Number(x.substring(0, x.indexOf("\"")))
+    }
+    else {
+      s = new Number(x.substring(0, x.indexOf(" ")))
+    }
+  }
+
+  return m * 60.0 + s
+}
+
+function get_label(x)
+{
+  x = trim1(x)
+  x = x.replace("... ", "").replace("...", "").replace("..", "")
+  x = x + " "
+  var r = title_case(trim1(x.substring(x.indexOf(" ") + 1)))
+  if(r == "")
+    r = "Untitled"
+  return r
+}
+
+function get_list_from_timings(x)
+{
+  var t = x.split("\n")
+  var l = []
+  var old_time = 0.0
+  for(var i = 0; i < t.length; i++) {
+    var new_timing = get_timing(t[i])
+    var new_label = get_label(t[i])
+    if(new_label == "Untitled")
+      new_label = "Section " + (i + 1)
+    if(new_timing > old_time) {
+      l.push({"time":new_timing, "label":new_label})
+      old_time = new_timing
+    }
+  }
+
+  var s = ""
+  for(var i = 0; i < l.length; i++) {
+    s = s + l[i].time + "|" + l[i].label + "|"
+  }
+
+  return l
+}
+
+function extend_timings_area()
+{
+  var t = fromid("Timings")
+  var a = t.value.split("\n")
+  var m = 25
+  for(var i = 0; i < a.length; i++) {
+    if(a[i].length > m)
+      m = a[i].length
+  }
+  t.cols = m
+}
+
+function update_timings_box(l)
+{
+  var timings = fromid("TimingsBox").options
+  while(timings.length) {
+    timings.remove(0)
+  }
+
+  for(var i = 0; i < l.length; i++) {
+    timings.add(new Option(l[i].label, i))
+  }
+
+  if(l.length == 0) {
+    timings.add(new Option("(no timings)", i))
+    timings.disabled = true
+  }
+  else
+    timings.disabled = false
+
+  global_timings = l
+}
+
+function to_time_format(x)
+{
+  var m = Math.floor(x / 60)
+  var s = (x - (Math.floor(x / 60) * 60))
+  var b = ""
+  if(s < 10)
+    b = "0"
+  return "" + m + "'" + b + s.toFixed(1) + "\""
+}
+
+function get_corrected_timings_from_list(l)
+{
+  var s = ""
+  for(var i = 0; i < l.length; i++) {
+    s = s + "... " + to_time_format(l[i].time) + " " + l[i].label + "\n"
+  }
+  return s
+}
+
+function correct_timings()
+{
+  var l = get_list_from_timings(fromid("Timings").value)
+  fromid("Timings").value = get_corrected_timings_from_list(l)
+  update_timings_box(l)
+  extend_timings_area()
+}
+
+function timing(time, label)
+{
+  time = time.replace(":", "'")
+  time = time.replace("\"", "")
+  return time + " " + label + '\n'
+}
+
+function fromid(x)
+{
+  return document.getElementById(x)
+}
+
+function debug(x)
+{
+  fromid("info").innerHTML = x
+}
+
+function draw_clock_path(ctx, x, y, r, a)
+{
+  ctx.beginPath()
+  var pi = Math.PI
+  var two_pi = 2 * pi
+  if(a == 0)
+  {
+    ctx.arc(x, y, r, 0, two_pi)
+  }
+  else
+  {
+    ctx.arc(x, y, r, (a - 0.25) * two_pi, 0.75 * two_pi)
+    ctx.lineTo(x, y)
+    ctx.closePath()
+  }
+}
+
+function draw_clock(ctx, x, y, r, a)
+{
+  /*
+  nice greens:
+  #61aa51
+  #82cb73
+  #a3ed94
+  #c4ffb5
+
+  nice brick:
+  #af422b
+  #cf624b
+  #ef826b
+  #ffa28b
+  */
+
+  ctx.fillStyle="#af422b"
+  ctx.strokeStyle="#ef826b"
+  draw_clock_path(ctx, x, y, r, 0.0)
+  ctx.fill()
+
+  if(global_interval_queue_index == 0) {
+    ctx.fillStyle  ="#1151aa"
+    ctx.strokeStyle="#1394ed"
+  } else {
+    ctx.fillStyle  ="#61aa51"
+    ctx.strokeStyle="#a3ed94"
+  }
+
+
+
+  draw_clock_path(ctx, x, y, r, a)
+  ctx.fill()
+  ctx.stroke()
+
+  ctx.font = "bold 50px sans-serif"
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fontSize = "30em";
+  ctx.fillStyle = "rgba(0, 0, 0, 0.5)"
+  ctx.fillText(global_interval_queue[global_interval_queue_index].label, x, y);
+
+}
+
+function get_time()
+{
+  var d = new Date()
+  return d.getTime() / 1000
+}
+
+function get_percentage_completed()
+{
+  if(global_interval_start == 0)
+    return 0
+
+  var t = (get_time() - global_interval_start) / global_interval_length
+  if(t < 0)
+    t = 0
+  if(t > 1)
+    t = 1
+  return t
+}
+
+function update_clock()
+{
+  var c = fromid("AnimationCanvas")
+  var nw = window.innerWidth - 420
+  var nh = window.innerHeight - 50
+  if(nw < 100) nw = 100
+  if(nh < 100) nh = 100
+  if(c.width != nw)
+    c.width = nw
+  if(c.height != nh)
+    c.height = nh
+  var ctx = c.getContext("2d")
+  var w = c.width
+  var h = c.height
+  var x = w / 2
+  var y = h / 2
+  var r = w / 2
+  if(h < w)
+    r = h / 2
+
+  var p = get_percentage_completed()
+
+  draw_clock(ctx, x, y, r, p)
+
+  //Comment out to allow animation
+  //stop_clock()
+
+  if(p == 1.0) {
+    stop_clock()
+    global_interval_queue_index++
+    if(global_interval_queue_index < global_interval_queue.length)
+      start_clock(true)
+  }
+}
+
+function play_sound()
+{
+  fromid("AudioPlayer").play()
+}
+
+function start_clock(Update)
+{
+  if(Update) {
+    global_interval_start += global_interval_length
+    global_interval_length = global_interval_queue[
+      global_interval_queue_index].duration
+  }
+  else {
+    global_interval_start = get_time()
+    global_interval_length = global_interval_queue[
+      global_interval_queue_index].duration
+  }
+
+  global_interval_clock = setInterval(update_clock, 80)
+  if(global_interval_queue_index > 0 && fromid("BellOnOff").checked)
+    play_sound()
+
+  debug(global_interval_queue[global_interval_queue_index].label + ": " +
+    global_interval_length + " seconds")
+}
+
+function stop_clock()
+{
+  clearInterval(global_interval_clock)
+}
+
+main()
+
+</script>
+
+
+</body></html>
